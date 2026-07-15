@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OptiCrop Smart Agriculture Engine</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; }
+        .topnav { background-color: #2c3e50; overflow: hidden; }
+        .topnav a { float: left; display: block; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; }
+        .topnav a:hover { background-color: #1abc9c; color: white; }
+        .topnav a.active { background-color: #27ae60; color: white; }
+        .container { padding: 30px; max-width: 800px; margin: auto; background: white; margin-top: 30px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
+        h2, h3 { color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; }
+        input[type="text"] { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #bdc3c7; border-radius: 4px; }
+        .btn { background-color: #27ae60; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
+        .btn:hover { background-color: #219653; }
+        .result-box { background-color: #e8f8f5; border-left: 5px solid #27ae60; padding: 15px; margin-top: 20px; font-size: 18px; font-weight: bold; color: #27ae60; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="topnav">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#findyourcrop">FindYourCrop</a>
+    </div>
+
+    <div class="container">
+        <div id="home">
+            <h2>OptiCrop Agricultural Optimisation</h2>
+            <p>The main purpose of the OptiCrop aims to develop an advanced software system.</p>
+        </div>
+        <hr>
+
+        <div id="about">
+            <h3>OptiCrop Smart Agricultural Optimization Using ML</h3>
+            <p>
+                The project "OptiCrop: Smart Agricultural Production Optimization Engine" aims to develop an advanced 
+                software system that utilizes data-driven insights to optimize agricultural production for different crops. 
+                By integrating key environmental factors such as Nitrogen (N), Phosphorous (P), Potassium (K) levels, soil 
+                temperature, humidity, pH, rainfall, and crop types, OptiCrop seeks to provide intelligent recommendations 
+                to farmers for maximizing yields and resource efficiency.
+            </p>
+        </div>
+        <hr>
+
+        <div id="findyourcrop">
+            <h3>Find Your Crop Recommendation</h3>
+            <center>
+                <form action="{{ url_for('predict') }}" method="post">
+                    <div class="form-group">
+                        <label for="nitrogen">nitrogen:</label>
+                        <input type="text" id="nitrogen" name="nitrogen" placeholder="nitrogen" required="required"/><br/><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phosphorous">phosphorous:</label>
+                        <input type="text" id="phosphorous" name="phosphorous" placeholder="phosphorous" required="required"/><br/><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="potassium">potassium:</label>
+                        <input type="text" id="potassium" name="potassium" placeholder="potassium" required="required"/><br/><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="temperature">temperature:</label>
+                        <input type="text" id="temperature" name="temperature" placeholder="temperature" required="required"/><br/><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="humidity">humidity:</label>
+                        <input type="text" id="humidity" name="humidity" placeholder="humidity" required="required"/><br/><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ph">ph:</label>
+                        <input type="text" id="ph" name="ph" placeholder="ph" required="required"/><br/><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rainfall">rainfall:</label>
+                        <input type="text" id="rainfall" name="rainfall" placeholder="rainfall" required="required"/><br/><br/>
+                    </div>
+
+                    <button type="submit" class="btn">Predict</button>
+                </form>
+            </center>
+
+            {% if prediction_text %}
+            <div class="result-box">
+                <p>{{ prediction_text }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+  </html>
