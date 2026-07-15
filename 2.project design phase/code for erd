@@ -1,0 +1,65 @@
+Table User {
+  user_id int [pk]
+  name varchar
+  email varchar
+  password varchar
+  role varchar // Farmer, Agricultural Researcher, Policy Maker
+}
+
+Table SoilData {
+  soil_id int [pk]
+  user_id int [ref: > User.user_id]
+  nitrogen decimal
+  phosphorous decimal
+  potassium decimal
+  pH decimal
+  temperature decimal
+  humidity decimal
+  rainfall decimal
+  recorded_at timestamp
+}
+
+Table Crop {
+  crop_id int [pk]
+  crop_name varchar
+  crop_type varchar // Cereal, Legume, etc.
+  ideal_season varchar
+  min_pH decimal
+  max_pH decimal
+  water_requirement varchar
+}
+
+Table Dataset {
+  dataset_id int [pk]
+  dataset_name varchar // Agricultural & Soil Data Repository
+  source varchar
+  total_records int
+  last_updated timestamp
+}
+
+Table MLModel {
+  model_id int [pk]
+  dataset_id int [ref: > Dataset.dataset_id]
+  model_name varchar // Crop Recommendation Classifier
+  algorithm varchar // Random Forest, XGBoost, etc.
+  accuracy_score decimal
+  version varchar
+}
+
+Table Prediction {
+  prediction_id int [pk]
+  soil_id int [ref: > SoilData.soil_id]
+  crop_id int [ref: > Crop.crop_id]
+  model_id int [ref: > MLModel.model_id]
+  prediction_date timestamp
+  confidence_score decimal
+  suitability_status varchar // Highly Suitable, Moderately Suitable, Unsuitable
+}
+
+Table Report {
+  report_id int [pk]
+  prediction_id int [ref: > Prediction.prediction_id]
+  generated_date timestamp
+  summary_metrics text // Environmental assessment metrics for research
+  policy_recommendation text // Policy-level notes for agricultural planners
+}
