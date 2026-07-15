@@ -1,0 +1,42 @@
+# Epic 2: Data Collection and Analysis
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set the style for clean charts
+sns.set_theme(style="whitegrid")
+
+# 2. Read the dataset file
+df = pd.read_csv('Crop_recommendation.csv')
+
+# 3. Print the first 5 rows to verify it loaded correctly
+df.head()
+# Print statistical summaries (mean, min, max)
+print("Dataset Summary Statistics:")
+display(df.describe())
+
+# Draw a distribution chart for Temperature
+plt.figure(figsize=(6, 4))
+sns.histplot(df['temperature'], kde=True, color='green')
+plt.title('Univariate Analysis: Temperature Distribution')
+plt.xlabel('Temperature in Celsius')
+plt.ylabel('Number of Records')
+plt.show()
+# Compare Nitrogen requirements across different crops
+plt.figure(figsize=(12, 6))
+sns.barplot(x='N', y='label', data=df, errorbar=None)
+plt.title('Bivariate Analysis: Nitrogen Requirements by Crop')
+plt.xlabel('Nitrogen (N) Level in Soil')
+plt.ylabel('Crop Type')
+plt.tight_layout()
+plt.show()
+# Generate a Correlation Heatmap for numerical parameters
+plt.figure(figsize=(8, 6))
+numeric_df = df.select_dtypes(include=[np.number])
+sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm', fmt='.2f')
+plt.title('Multivariate Analysis: Parameter Correlation Matrix')
+plt.tight_layout()
+plt.show()
+
+print("Epic 2 Data Analysis Complete!")
